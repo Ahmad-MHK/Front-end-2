@@ -1,0 +1,7 @@
+.Block {
+    display: flex;
+    flex-direction: column;
+    background-color: blanchedalmond;
+    height: 100vh;
+    width: 30rem;
+}
