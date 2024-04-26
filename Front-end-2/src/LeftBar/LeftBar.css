@@ -1,7 +1,16 @@
 .Block {
     display: flex;
     flex-direction: column;
-    background-color: blanchedalmond;
+    background-color: cadetblue;
     height: 100vh;
-    width: 30rem;
+    width: 20rem;
+    align-items: center;
 }
+
+.image {
+    height: 30px;
+    width: 30px;
+    background-color: black;
+}
+
+.Main

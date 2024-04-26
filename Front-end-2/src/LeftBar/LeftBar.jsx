@@ -1,13 +1,14 @@
 import React from 'react'
 import './LeftBar.css'
 
+
 function LeftBar() {
 
   return (
     <>
     <div className="Block">
       <div className="Main-block">
-        <img src="" alt="" />
+        <img src=".\assets\4436481.png" alt="" className='image' />
         <h2>Sportagram</h2>
       </div>
       <div className="Slaves-block">
