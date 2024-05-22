@@ -29,38 +29,9 @@
 .block-Store {
   display: flex;
   flex-direction: row;
-  height: 15vh;
+  height: 10vh;
   width: 76rem;
   margin-top: 25px;
-}
-
-.next::before {
-  content: " ";
-  border-right: 2px solid #000;
-  border-top: 2px solid #000;
-  width: 20px;
-  height: 20px;
-  transform: rotate(45deg);
-  cursor: pointer;
-  display: block;
-  position: relative;
-}
-
-.prev::before {
-  content: " ";
-  border-left: 2px solid #000;
-  border-bottom: 2px solid #000;
-  width: 20px;
-  height: 20px;
-  transform: rotate(45deg);
-  cursor: pointer;
-  display: block;
-}
-
-.circular--square { 
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
 }
 
 .gap-store {
@@ -73,5 +44,37 @@
   height: 20px;
   width: 5rem;
 }
+
+.story-img {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:100px;
+  height:100px;
+  overflow:hidden;
+}
+.story-img img {
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.story-img svg {
+  fill:none;
+  stroke:#8a3ab8;
+  stroke-width:2px;
+  stroke-dasharray:0px,1px;
+  stroke-dashoffset:0;
+  stroke-linecap:round;
+}
+
+.story-img svg:hover {
+  animation:loading 2500ms ease-out infinite alternate;
+}
+
 
 /* Store */
