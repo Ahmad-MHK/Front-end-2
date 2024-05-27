@@ -5,6 +5,7 @@ import './App.css'
 import LeftBar from './LeftBar/LeftBar'
 import Topbar from './RightSide/TopBar'
 import Store from './RightSide/Store'
+import Post from './RightSide/Post'
 import ConnectionFirebase from "./Firebase/FirebaseConfig"
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <div className="Right">
       <Topbar></Topbar>
       <Store></Store>
+      <Post></Post>
       </div>
     </div>
   )
