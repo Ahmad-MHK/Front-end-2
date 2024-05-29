@@ -17,10 +17,8 @@ function Post() {
         </section>
         <section class="insta__post_photos">
 
-
             <img src="http://via.placeholder.com/620" class="insta__post_photo" alt="photo"/>
-
-
+            
         </section>
         <section class="insta__post_btns">
             <div class="insta__post_btns-left">
@@ -59,8 +57,6 @@ function Post() {
                 </span>
                 Hello i want to talk about you
                 <span class="insta__hashtag">#hashtag</span>
-
-
             </div>
         </section>
         <section class="insta__post_footer"> <svg color="#262626" fill="#262626" height="24" role="img"

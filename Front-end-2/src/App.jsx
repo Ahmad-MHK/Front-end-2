@@ -6,7 +6,9 @@ import LeftBar from './LeftBar/LeftBar'
 import Topbar from './RightSide/TopBar'
 import Store from './RightSide/Store'
 import Post from './RightSide/Post'
-import ConnectionFirebase from "./Firebase/FirebaseConfig"
+import PostForm from './RightSide/postForm'
+import db from "./Firebase/FirebaseConfig"
+
 
 function App() {
 
@@ -17,6 +19,7 @@ function App() {
       <Topbar></Topbar>
       <Store></Store>
       <Post></Post>
+      <PostForm></PostForm> 
       </div>
     </div>
   )
