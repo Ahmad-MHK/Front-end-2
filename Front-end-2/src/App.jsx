@@ -5,7 +5,10 @@ import './App.css'
 import LeftBar from './LeftBar/LeftBar'
 import Topbar from './RightSide/TopBar'
 import Store from './RightSide/Store'
-import ConnectionFirebase from "./Firebase/FirebaseConfig"
+import Post from './RightSide/Post'
+import PostForm from './RightSide/postForm'
+import db from "./Firebase/FirebaseConfig"
+
 
 function App() {
 
@@ -15,6 +18,8 @@ function App() {
       <div className="Right">
       <Topbar></Topbar>
       <Store></Store>
+      <Post></Post>
+      <PostForm></PostForm> 
       </div>
     </div>
   )
