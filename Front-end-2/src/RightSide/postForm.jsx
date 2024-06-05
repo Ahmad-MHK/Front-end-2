@@ -12,16 +12,26 @@ function PostForm({ addPost }) {
     e.preventDefault();
 
     try {
-      const docRef = await addDoc(collection(db, "PostContact"), {
-        comment: comment,
-        hashtag: hashtag
-      });
+      // Add the post document without the imageURL first
+      // const docRef = await addDoc(collection(db, "PostContact"), {
+      //   comment: comment,
+      //   hashtag: hashtag
+      // });
 
       let imageURL = '';
       if (imageUpload) {
+        // Upload the image to Firebase Storage
         const imageRef = ref(storage, `images/${imageUpload.name + Date.now()}`);
         await uploadBytes(imageRef, imageUpload);
         imageURL = await getDownloadURL(imageRef);
+
+        // Update the document with the imageURL
+        await addDoc(collection(db, "PostContact"), {
+          comment: comment,
+          hashtag: hashtag,
+          imageURL: imageURL
+        });
+
         alert("Image Uploaded");
       }
 

@@ -11,12 +11,17 @@ import { collection, getDocs } from 'firebase/firestore';
 function App() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+  const fetchPosts = async () => {
+    try {
       const querySnapshot = await getDocs(collection(db, "PostContact"));
       const postsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setPosts(postsList);
-    };
+    } catch (error) {
+      console.error('Error fetching posts: ', error);
+    }
+  };
+
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -29,7 +34,6 @@ function App() {
       <LeftBar />
       <div className="Right">
         <Topbar />
-        <Store />
         <Post posts={posts} />
         <PostForm addPost={addPost} />
       </div>
