@@ -36,7 +36,7 @@ function LeftBar() {
         </a>
       </div>
       <div className="Slaves-block">
-        <a href="" className='text'>
+        <a href=".//CreatePost" className='text'>
         <img src="" alt="" />
         <h3>Create</h3>
         </a>

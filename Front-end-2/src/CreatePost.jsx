@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import LeftBar from './LeftBar/LeftBar';
 import Topbar from './RightSide/TopBar';
+import Store from './RightSide/Store';
 import Post from './RightSide/Post';
 import PostForm from './RightSide/postForm';
 import db from "./Firebase/FirebaseConfig";
 import { collection, getDocs } from 'firebase/firestore';
 
-function App() {
+function CreatePost() {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -32,12 +33,10 @@ function App() {
     <div className="row">
       <LeftBar />
       <div className="Right">
-        <Topbar />
-        <Post posts={posts} />
         <PostForm addPost={addPost} />
       </div>
     </div>
   );
 }
 
-export default App;
+export default CreatePost;
