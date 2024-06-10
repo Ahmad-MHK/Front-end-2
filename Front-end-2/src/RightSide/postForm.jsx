@@ -12,11 +12,6 @@ function PostForm({ addPost }) {
     e.preventDefault();
 
     try {
-      // Add the post document without the imageURL first
-      // const docRef = await addDoc(collection(db, "PostContact"), {
-      //   comment: comment,
-      //   hashtag: hashtag
-      // });
 
       let imageURL = '';
       if (imageUpload) {

@@ -1,19 +1,5 @@
 import React, { useEffect } from 'react';
 import './post.css';
-import db, { storage } from '../Firebase/FirebaseConfig';
-import { getDownloadURL, ref } from 'firebase/storage';
-
-// const imageUrl = ref(storage, '/images');
-
-// const getImageFormStorage = async () => {
-//   const url = await getDownloadURL(imageUrl)
-//   console.log(url);
-//   setDownloadedImage(url);
-// }
-
-// useEffect(() => {
-//   getImageFormStorage
-// })
 
 function Post({ posts }) {
   return (
