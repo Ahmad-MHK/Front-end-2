@@ -2,3 +2,9 @@
     display: flex;
     flex-direction: row;
 }
+.right-login{
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
