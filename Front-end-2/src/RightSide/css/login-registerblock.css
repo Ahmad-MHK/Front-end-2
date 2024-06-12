@@ -1,0 +1,37 @@
+ 
+.login-block{
+    width: 40%;
+    height: 60%;
+    border: 2px black solid;
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+.register-block{
+    width: 40%;
+    height: 80%;
+    border: 2px black solid;
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+.title{
+    width: 100%;
+    height: 20%;
+   
+    display: flex;
+    border-top-left-radius: 7%;
+border-top-right-radius: 7%;
+}
+.half-correct{
+width: 50%;
+height: 100%;
+color: #000000;
+font-size: 35px;
+text-align: center;
+text-decoration: underline blue 2px;
+}
+.half-incorect{width: 50%;
+    height: 100%;
+    color: black;
+    font-size: 30px;
+    text-align: center;
+    }
