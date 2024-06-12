@@ -1,43 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import LeftBar from './LeftBar/LeftBar';
-import Topbar from './RightSide/TopBar';
-import Post from './RightSide/Post';
-import PostForm from './RightSide/postForm';
-import db from "./Firebase/FirebaseConfig";
-import { collection, getDocs } from 'firebase/firestore';
-
+ 
+import { Routes, Route } from "react-router-dom";
+import './App.css'
+import Homepage from './pages/Homepage'
+import Loginpage from './pages/loginpage'
+import Registerpage from './pages/registerpage';
 function App() {
-  const [posts, setPosts] = useState([]);
-
-  const fetchPosts = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "PostContact"));
-      const postsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setPosts(postsList);
-    } catch (error) {
-      console.error('Error fetching posts: ', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const addPost = (newPost) => {
-    setPosts([...posts, newPost]);
-  };
-
+ 
   return (
-    <div className="row">
-      <LeftBar />
-      <div className="Right">
-        <Topbar />
-        <Post posts={posts} />
-        <PostForm addPost={addPost} />
-      </div>
-    </div>
-  );
-}
-
-export default App;
+  <Routes>
+    <Route path="/" element={<Homepage />} />
+    <Route path="/login" element={<Loginpage />} />
+    <Route path="/register" element={<Registerpage />} />
+  </Routes>
+ 
+  )
+  }
+ 
+export default App
+ 
