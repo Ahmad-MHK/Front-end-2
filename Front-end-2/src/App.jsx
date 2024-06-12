@@ -6,6 +6,8 @@ import Post from './RightSide/Post';
 import PostForm from './RightSide/postForm';
 import db from "./Firebase/FirebaseConfig";
 import { collection, getDocs } from 'firebase/firestore';
+import UserSearch from './RightSide/UserSearch';
+
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -35,6 +37,7 @@ function App() {
         <Topbar />
         <Post posts={posts} />
         <PostForm addPost={addPost} />
+        <UserSearch/>
       </div>
     </div>
   );
