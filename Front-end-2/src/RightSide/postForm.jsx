@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import db, { storage } from '../Firebase/FirebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import './postForm.css';  
+import './/css/postForm.css';  
 
 function PostForm({ addPost }) {
   const [comment, setComment] = useState('');

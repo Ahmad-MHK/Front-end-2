@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './post.css';
+import './/css/post.css';
 
 function Post({ posts }) {
   return (

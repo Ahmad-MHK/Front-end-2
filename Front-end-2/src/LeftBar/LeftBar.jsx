@@ -10,7 +10,7 @@ function LeftBar() {
    
     <div className="Block">
       <div className="Main-block">
-        <img src=".\assets\4436481.png" alt="" className='image' />
+        {/* <img src=".\assets\4436481.png" alt="" className='image' /> */}
         <h2>Sportagram</h2>
       </div>
       <div className="Slaves-block">
@@ -38,10 +38,10 @@ function LeftBar() {
         </a>
       </div>
       <div className="Slaves-block">
-        <a href="" className='text'>
+        <Link to='/CreatePostPage' >
         <img src="" alt="" />
         <h3>Create</h3>
-        </a>
+        </Link>
       </div>
       <div className="Slaves-block">
         <a href="" className='text'>
