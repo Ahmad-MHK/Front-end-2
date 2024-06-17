@@ -1,31 +1,37 @@
-
 // src/LoginForm.js
 import React, { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import '../css/loginform.css';
- 
+
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- 
-  const handleSubmit = (e) => {
+  const auth = getAuth();
+
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
+    try {
+      // Sign in user with email and password
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('Logged in as:', userCredential.user.email);
+      // Handle further actions after successful login, such as redirecting to another page
+    } catch (error) {
+      console.error('Error logging in:', error.message);
+      // Handle error, show error message to the user, etc.
+    }
   };
- 
+
   return (
-   
-      <form className="login-form" onSubmit={handleSubmit}>
-     
+    <div>
+      <form className="login-form" onSubmit={handleEmailLogin}>
         <div className="input-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -42,9 +48,8 @@ const LoginForm = () => {
         </div>
         <button type="submit">Login</button>
       </form>
- 
+    </div>
   );
 };
- 
+
 export default LoginForm;
- 
