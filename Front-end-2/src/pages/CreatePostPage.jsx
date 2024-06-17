@@ -7,7 +7,7 @@ import PostForm from '../RightSide/postForm';
 import db from "../Firebase/FirebaseConfig";
 import { collection, getDocs } from 'firebase/firestore';
 
-function Homepage() {
+function CreatePostPage() {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -33,10 +33,10 @@ function Homepage() {
       <LeftBar />
       <div className="Right">
         <Topbar />
-        <Post posts={posts} />
+        <PostForm addPost={addPost} />
       </div>
     </div>
   );
 }
 
-export default Homepage;
+export default CreatePostPage;
