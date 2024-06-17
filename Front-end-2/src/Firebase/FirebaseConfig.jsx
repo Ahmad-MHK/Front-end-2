@@ -4,11 +4,8 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyA1Dc-Ev2oGq5CBDHYik4JWTaaHe3rf82Y",
   authDomain: "school-website-2-e7ba7.firebaseapp.com",
@@ -21,10 +18,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app); // You can use analytics if needed
+const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
-// const auth = getAuth(app);
 
-// export {auth}
-export  {storage} ;
+export { storage, auth };
 export default db;
