@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {  createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
+import { getFirestore,collection, doc, setDoc  } from 'firebase/firestore';
 import { Link } from "react-router-dom";
 
 import db,{ auth } from '../../Firebase/FirebaseConfig';
@@ -20,13 +20,14 @@ const RegisterForm = () => {
       return;
     }
     try {
-      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Registered user:', userCredential.user.email);
-     
-      const docRef = await addDoc(collection(db, "logins"), {
+      const user = userCredential.user;
+
+      // Store user data in Firestore with user.uid as document ID
+      await setDoc(doc(db, 'logins', user.uid), {
+        uid: user.uid,
+        email: user.email,
         username: username,
-        email: email,
         password: password
       });
       window.location.href = '/';
