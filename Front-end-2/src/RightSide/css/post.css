@@ -318,6 +318,8 @@ html {
     display: flex;
     align-items: center;
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
 }
 
 .insta__post_footer svg {
@@ -341,3 +343,4 @@ html {
 .insta__comm_text {
     padding: 10px;
 }
+
