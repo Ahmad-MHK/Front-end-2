@@ -20,10 +20,7 @@ function LeftBar() {
         </a>
       </div>
       <div className="Slaves-block">
-        <a href="" className='text'>
-        <img src="" alt="" />
-        <h3>Search</h3>
-        </a>
+        <Link to="/SearchPage"><h3>Search</h3></Link>
       </div>
       <div className="Slaves-block">
         <a href="" className='text'>
