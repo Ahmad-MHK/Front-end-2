@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import db, { auth, storage } from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
+import db,{ auth, storage } from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
 import './css/postForm.css';  
 
 function PostForm({ addPost }) {
@@ -35,6 +35,12 @@ function PostForm({ addPost }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if username is available
+    if (!username) {
+      alert('Cannot post without a username. Please log in.');
+      return;
+    }
 
     try {
       let imageURL = '';
