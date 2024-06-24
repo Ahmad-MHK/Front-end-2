@@ -34,7 +34,7 @@ function PostItem({ post, username }) {
         <div className="insta__icon-wrap insta__post_icon-wrap">
           <img src="http://via.placeholder.com/24" className="insta__mini_icon insta__post_icon" alt="icon" />
         </div>
-        <span className="insta__post_text-bold">{username}</span>
+        <span className="insta__post_text-bold">{post.username}</span>
       </section>
       <section className="insta__post_photos">
         <img src={post.imageURL} className="insta__post_photo" alt="photo" />
@@ -54,7 +54,7 @@ function PostItem({ post, username }) {
       <section className="insta__post_comm insta__post_comm_aut">
         <span className="insta__post_text-bold">518 202 Views</span>
         <div className="insta__post_comm_author">
-          <span className="insta__post_text-bold">{username}</span>
+          <span className="insta__post_text-bold">{post.username}</span>
           {post.comment}
           <span className="insta__hashtag">#{post.hashtag}</span>
         </div>

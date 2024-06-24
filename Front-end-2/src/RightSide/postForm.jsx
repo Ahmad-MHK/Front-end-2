@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
-import db, { storage } from '../Firebase/FirebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, getDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import db, { auth, storage } from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
 import './css/postForm.css';  
 
 function PostForm({ addPost }) {
   const [comment, setComment] = useState('');
   const [hashtag, setHashtag] = useState('');
   const [imageUpload, setImageUpload] = useState(null);
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          // Fetch the username from Firestore based on the user's UID
+          const userDocRef = doc(db, 'logins', user.uid);
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            setUsername(userDoc.data().username);
+          } else {
+            console.log('User document not found');
+          }
+        } catch (error) {
+          console.error('Error fetching user document: ', error);
+        }
+      } else {
+        console.log('No user logged in');
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,28 +44,32 @@ function PostForm({ addPost }) {
         imageURL = await getDownloadURL(imageRef);
 
         const docRef = await addDoc(collection(db, "PostContact"), {
+          username: username,
           comment: comment,
           hashtag: hashtag,
           imageURL: imageURL
         });
-
+        console.log(username + " username");
         alert("Image Uploaded");
+
+        const newPost = {
+          id: docRef.id,
+          username: username,
+          comment: comment,
+          hashtag: hashtag,
+          imageURL: imageURL
+        };
+
+        addPost(newPost);
+
+        setComment('');
+        setHashtag('');
+        setImageUpload(null);
+      } else {
+        console.log('No image uploaded');
       }
-
-      const newPost = {
-        id: docRef.id,
-        comment: comment,
-        hashtag: hashtag,
-        imageURL: imageURL
-      };
-
-      addPost(newPost);
-
-      setComment('');
-      setHashtag('');
-      setImageUpload(null);
     } catch (error) {
-      console.log('Error adding document: ', error);
+      console.error('Error adding document: ', error);
     }
   };
 
