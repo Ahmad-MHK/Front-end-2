@@ -3,7 +3,7 @@ import db from '../Firebase/FirebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const SearchUser = () => {
-  const [query, setQuery] = useState('');
+  const [Searchquery, setSearchQuery] = useState('');
   const [results, setResults] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
 
@@ -19,7 +19,6 @@ const SearchUser = () => {
       setAllUsers(users);
     } catch (error) {
       console.error("Error fetching users: ", error);
-      setAllUsers([]);
     }
   };
 
@@ -31,13 +30,12 @@ const SearchUser = () => {
     }
 
     try {
-      const q = query(collection(db, 'logins'), where('username', '==', query));
+      const q = query(collection(db, 'logins'), where('username', '==', Searchquery));
       const querySnapshot = await getDocs(q);
       const users = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setResults(users);
     } catch (error) {
       console.error("Error searching for users: ", error);
-      setResults([]);
     }
   };
 
@@ -46,8 +44,8 @@ const SearchUser = () => {
       <form onSubmit={handleSearch}>
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={Searchquery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search username..."
         />
         <button type="submit">Search</button>
