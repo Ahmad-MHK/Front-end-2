@@ -1,30 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { doc, getDoc, updateDoc, arrayUnion    } from 'firebase/firestore';
+import db, {auth} from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
 import './css/post.css';
 
-function Post({ posts, username }) {
+function Post({ posts }) {
   return (
     <div className='Post-Block'>
       {posts.map(post => (
-        <PostItem key={post.id} post={post} username={username} />
+        <PostItem key={post.id} post={post} />
       ))}
     </div>
   );
 }
 
-function PostItem({ post, username }) {
+function PostItem({ post }) {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          // Fetch the username from Firestore based on the user's UID
+          const userDocRef = doc(db, 'logins', user.uid);
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            setUsername(userDoc.data().username);
+          } else {
+            console.log('User document not found');
+          }
+        } catch (error) {
+          console.error('Error fetching user document: ', error);
+        }
+      } else {
+        console.log('No user logged in');
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const postDocRef = doc(db, 'PostContact', post.id);
+      const postDoc = await getDoc(postDocRef);
+      if (postDoc.exists()) {
+        const postData = postDoc.data();
+        if (postData.comments) {
+          setComments(postData.comments);
+        }
+      }
+    };
+
+    fetchComments();
+  }, [post.id]);
 
   const handleLikeClick = () => {
     setLikes(likes + 1);
   };
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (newComment.trim()) {
-      setComments([...comments, { text: newComment, username }]);
-      setNewComment('');
+    if (newComment.trim() && username) {
+      try {
+        const postDocRef = doc(db, 'PostContact', post.id);
+
+        // Add comment to the 'comments' field in the post document
+        await updateDoc(postDocRef, {
+          comments: arrayUnion({
+            text: newComment,
+            username: username,
+            createdAt: new Date().toISOString() // Ensure date is stored correctly
+          })
+        });
+
+        // Update local state with the new comment
+        setComments([...comments, { text: newComment, username }]);
+        setNewComment('');
+      } catch (error) {
+        console.error('Error adding comment: ', error);
+      }
+    } else {
+      console.error('Comment or username is undefined');
     }
   };
 
