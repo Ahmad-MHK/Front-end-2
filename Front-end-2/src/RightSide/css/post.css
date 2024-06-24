@@ -344,3 +344,22 @@ html {
     padding: 10px;
 }
 
+/* Hide the actual file input */
+#photo-input {
+    display: none;
+  }
+  
+  /* Style the label to look like a button */
+  .insta__acc_about_btn-blue {
+    cursor: pointer;
+  }
+  
+  /* Optional: Style the save button */
+  .save-button {
+    background-color: #3897f0;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
