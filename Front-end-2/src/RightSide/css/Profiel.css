@@ -3,7 +3,9 @@
     src: url(https://forumstatic.ru/files/001b/96/e0/44816.otf);
 }
 
+
 html {
+    /* ширина инстаграма */
     --instaWidth: 620px;
 }
 
@@ -13,6 +15,7 @@ html {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin-left: 10vw;
 }
 
 
@@ -302,7 +305,7 @@ html {
 }
 
 .insta__post_comm_aut::after {
-    content: "Comments ..";
+    content: "Посмотреть все комментарии";
     color: #a7a7a7;
     font-size: 14px;
 }
@@ -318,8 +321,6 @@ html {
     display: flex;
     align-items: center;
     font-size: 14px;
-    display: flex;
-    flex-direction: column;
 }
 
 .insta__post_footer svg {
@@ -344,22 +345,3 @@ html {
     padding: 10px;
 }
 
-/* Hide the actual file input */
-#photo-input {
-    display: none;
-  }
-  
-  /* Style the label to look like a button */
-  .insta__acc_about_btn-blue {
-    cursor: pointer;
-  }
-  
-  /* Optional: Style the save button */
-  .save-button {
-    background-color: #3897f0;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
