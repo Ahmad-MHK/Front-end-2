@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import db,{ auth} from '../../Firebase/FirebaseConfig';
+import db, { auth } from '../../Firebase/FirebaseConfig';
 import '../css/loginform.css';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- 
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -39,6 +38,34 @@ const LoginForm = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Query the 'logins' collection to find the document with the matching UID
+      const loginsCollection = collection(db, 'logins');
+      const q = query(loginsCollection, where('uid', '==', user.uid));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          const userData = doc.data();
+          console.log('Logged in as:', userData.username);
+          alert(`You have logged in as: ${userData.username}`);
+          window.location.href = '/';
+        });
+      } else {
+        console.log('No user data found');
+        alert("No user data found");
+      }
+    } catch (error) {
+      console.error('Error logging in with Google:', error.message);
+      alert(`Error logging in with Google: ${error.message}`);
+    }
+  };
+
   return (
     <div>
       <form className="login-form" onSubmit={handleEmailLogin}>
@@ -66,6 +93,9 @@ const LoginForm = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleGoogleLogin} className="google-login-button">
+        Login with Google
+      </button>
     </div>
   );
 };
