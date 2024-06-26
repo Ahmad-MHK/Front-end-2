@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc, updateDoc, arrayUnion    } from 'firebase/firestore';
-import db, {auth} from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import db, { auth } from '../Firebase/FirebaseConfig'; // Adjust path as per your actual setup
 import './css/post.css';
 
 function Post({ posts }) {
@@ -18,6 +18,7 @@ function PostItem({ post }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [username, setUsername] = useState('');
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -28,6 +29,15 @@ function PostItem({ post }) {
           const userDoc = await getDoc(userDocRef);
           if (userDoc.exists()) {
             setUsername(userDoc.data().username);
+
+            // Check if the user has already liked the post
+            const postDocRef = doc(db, 'PostContact', post.id);
+            const postDoc = await getDoc(postDocRef);
+            if (postDoc.exists()) {
+              const postData = postDoc.data();
+              setLikes(postData.likes.length);
+              setHasLiked(postData.likes.includes(user.uid));
+            }
           } else {
             console.log('User document not found');
           }
@@ -40,7 +50,7 @@ function PostItem({ post }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, [post.id]);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -57,8 +67,28 @@ function PostItem({ post }) {
     fetchComments();
   }, [post.id]);
 
-  const handleLikeClick = () => {
-    setLikes(likes + 1);
+  const handleLikeClick = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const postDocRef = doc(db, 'PostContact', post.id);
+    try {
+      if (hasLiked) {
+        await updateDoc(postDocRef, {
+          likes: arrayRemove(user.uid)
+        });
+        setLikes(likes - 1);
+        setHasLiked(false);
+      } else {
+        await updateDoc(postDocRef, {
+          likes: arrayUnion(user.uid)
+        });
+        setLikes(likes + 1);
+        setHasLiked(true);
+      }
+    } catch (error) {
+      console.error('Error updating likes: ', error);
+    }
   };
 
   const handleCommentSubmit = async (e) => {
